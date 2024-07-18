@@ -6,10 +6,6 @@
 
 Django project to manage a list of tasks with existing tags
 
-## Check it out!
-
-[To-Do List project deployed to Render]()
-
 ## Installation
 
 Python3 must be already installed
