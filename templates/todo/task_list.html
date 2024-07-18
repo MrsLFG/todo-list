@@ -1,18 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Todo List</h1>
-<a href="{% url 'task_create' %}" class="btn btn-primary">Add New Task</a>
-<ul>
-    {% for task in tasks %}
-        <li>
-            {{ task.content }} - {{ task.created_at }} - {{ task.deadline }} - {{ task.done }}
-            <a href="{% url 'task_update' task.pk %}">Edit</a>
-            <a href="{% url 'task_delete' task.pk %}">Delete</a>
-            <a href="{% url 'task_toggle' task.pk %}">
-                {% if task.done %} Undo {% else %} Complete {% endif %}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+  <h1>
+    Todo List
+    <a href="{% url 'todo:task-create' %}" class="btn btn-primary" style="inline-start: rtl">
+      Add Task
+    </a>
+  </h1>
+  {% for task in tasks %}
+    <hr>
+    <h5>{{ task.content }}
+      {% if task.done %} 
+        <span style="color: green"><strong>Done</strong></span>
+      {% else %} 
+        <span style="color: red"><strong>Not done</strong></span>
+      {% endif %}
+      <a href="{% url 'todo:task-toggle' pk=task.id %}" style="float: right">
+        {% if task.done %} 
+          <span class="btn btn-secondary">Undo</span> 
+        {% else %} 
+          <span class="btn btn-success">Complete</span> 
+        {% endif %}
+      </a>
+    </h5>
+    <p>
+      Created: {{ task.created_at }}
+    </p>
+    <h5 class="text-muted">Tags: {% for tag in task.tags.all %} {{ tag.name }} {% endfor %}
+      <a href="{% url 'todo:task-update' pk=task.id %}" style="color: dodgerblue">Update</a>
+      <a href="{% url 'todo:task-delete' pk=task.id %}" style="color: dodgerblue">Delete</a>
+    </h5>
+{% endfor %}
 {% endblock %}
