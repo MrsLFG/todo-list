@@ -1,0 +1,13 @@
+body {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.col-sm-9 {
+    padding-right: 30px;
+}
