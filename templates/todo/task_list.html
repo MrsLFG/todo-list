@@ -10,21 +10,24 @@
   {% for task in tasks %}
     <hr>
     <h5>{{ task.content }}
-      {% if task.done %} 
+      {% if task.done %}
         <span style="color: green"><strong>Done</strong></span>
-      {% else %} 
+      {% else %}
         <span style="color: red"><strong>Not done</strong></span>
       {% endif %}
       <a href="{% url 'todo:task-toggle' pk=task.id %}" style="float: right">
-        {% if task.done %} 
-          <span class="btn btn-secondary">Undo</span> 
-        {% else %} 
-          <span class="btn btn-success">Complete</span> 
+        {% if task.done %}
+          <span class="btn btn-secondary">Undo</span>
+        {% else %}
+          <span class="btn btn-success">Complete</span>
         {% endif %}
       </a>
     </h5>
     <p>
       Created: {{ task.created_at }}
+      {% if task.done %}
+      <span style="color: darkred">Deadline: {{ task.deadline }}</span>
+      {% endif %}
     </p>
     <h5 class="text-muted">Tags: {% for tag in task.tags.all %} {{ tag.name }} {% endfor %}
       <a href="{% url 'todo:task-update' pk=task.id %}" style="color: dodgerblue">Update</a>
