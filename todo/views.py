@@ -58,8 +58,10 @@ class TagDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo:tag-list")
 
 
-def task_toggle(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.done = not task.done
-    task.save()
-    return redirect("todo:task-list")
+class TaskToggleView(generic.View):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        task = get_object_or_404(Task, pk=kwargs["pk"])
+        task.done = not task.done
+        task.save()
+        return redirect("todo:task-list")
